@@ -6,9 +6,11 @@
 package Negocio.Operaciones;
 
 import DatosPersistentes.AccesoDatosClientes;
+import DatosPersistentes.AccesoDatosVenta;
 import Negocio.Entidades.Cliente;
 import Negocio.Entidades.GrupoProds;
 import Negocio.Entidades.Producto;
+import Negocio.Entidades.Venta;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,36 +24,19 @@ import java.util.List;
 
  **********************************************************************/
 public class AdminVentas {
-    
-    
-    private List<Cliente> ListaClientes; 
-    private List<Producto> ListaProductos;
-    private List<GrupoProds> ListaConjuntoProductos;
-    private AdminProd adminProd; 
-    private AdminClientes adminClientes; 
-    private Date fechaActual; 
-    
+    private AccesoDatosVenta datosVenta;
     
 
     public AdminVentas() {
-        fechaActual = Date.from(Instant.now());
-        ListaProductos = adminProd.getListaProd();
-        ListaClientes = adminClientes.getListaClientes();
+        datosVenta = new AccesoDatosVenta();
     }
     
    /*La siguiente rutina (getListaProd()) utiliza para actualizar la 
     lista de productos en caso de que haya ocurrido un cambio en la 
     cantidad de productos mientras se realiza este registro.
     */
-    public void getListaProd(){
-        ListaProductos.clear();
-        ListaProductos = adminProd.getListaProd();
+    public void AgregarVenta(Venta venta){
+        datosVenta.insertar(venta);
     }
-    
-
-     
-    public void EliminarConjuntoProd(GrupoProds conjuntoProductos){
-        //adminConjuntoProd.editarConjuntoProd(conjuntoProductos);
-    }
-    
+   
 }

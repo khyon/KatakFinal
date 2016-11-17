@@ -9,6 +9,7 @@ import Negocio.Operaciones.Pedidor;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import Vista.Tablas.ModeloTablaGrupoProd;
+import Negocio.Entidades.GrupoProds;
 
 /**
  *
