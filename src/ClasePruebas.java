@@ -7,10 +7,7 @@ import Negocio.Entidades.Cliente;
 import Negocio.Entidades.GrupoProds;
 import Negocio.Entidades.Producto;
 import Negocio.Entidades.Venta;
-import Negocio.Operaciones.AdminClientes;
-import Negocio.Operaciones.AdminGrupoProd;
 import Negocio.Operaciones.AdminProd;
-import Negocio.Operaciones.AdminVentas;
 import Vista.MenuPrincipal;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -35,42 +32,42 @@ public class ClasePruebas {
      */
     public static void main(String[] args) {
         Date fechaActual = new Date();
-        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         formatoFecha.format(fechaActual);
-        Cliente hGil = new Cliente("Hector Gil", "9999273285", "Calle 76 Las Americas");
-        Cliente dGil = new Cliente("Daniel Gil", "test", "Test2");
+        Cliente rGil = new Cliente("Roberto Gil", "9999979832", "Calle 76 Las Americas");
+        Cliente dGil = new Cliente("Daniel Gil", "999999999", "Calle 76 Las Americas");
        
-        Producto ch250g = new Producto("Charritos 250g", 7);
+        Producto ch500g = new Producto("Charritos 500g", 5);
         
-        GrupoProds paqueteGil = new GrupoProds(ch250g, 300);
+        GrupoProds paqueteGil = new GrupoProds(ch500g, 300);
        
         List<GrupoProds> prodsVendidos = new ArrayList<>();
         prodsVendidos.add(paqueteGil);
         
-        Venta v1 = new Venta(hGil, prodsVendidos, fechaActual);
+        Venta v1 = new Venta(rGil, prodsVendidos, fechaActual);
         v1.calcularCostoTotal();
         
-        AdminClientes ac = new  AdminClientes();
-        ac.agregarCliente(dGil);
-        ac.agregarCliente(hGil);
-        ac.eliminarCliente(ac.getListaClientesPorNombre("Daniel Gil").get(0));
+        AccesoDatosClientes adc = new AccesoDatosClientes();
+        adc.insertar(dGil);
+        adc.insertar(rGil);
         
         AdminProd ap = new AdminProd();
-        ap.AgregarProd(ch250g);
+        ap.AgregarProd(ch500g);
         
-        AdminGrupoProd agp = new AdminGrupoProd();
-        agp.AgregarGrupoProd(paqueteGil);
+        AccesoDatosGrupoProds adgp = new AccesoDatosGrupoProds();
+        adgp.borrar(paqueteGil);
         
-        AdminVentas av = new AdminVentas();
-        av.AgregarVenta(v1);
+        AccesoDatosVenta adv = new AccesoDatosVenta();
+        adv.insertar(v1);
         
-        List<Cliente> busqueda1 = ac.getListaClientesPorNombre("Roberto Gil");
+        List<Cliente> busqueda1 = adc.getPorNombre("RobertoGil");
         System.out.println("Busqueda1");
+        busqueda1.add(dGil);
         for(Cliente c:busqueda1){
             System.out.println(c.getNombre());
         }
         
-        List<Cliente> busqueda2 = ac.getListaClientesPorNombre("Hector Gil");
+        List<Cliente> busqueda2 = adc.getPorNombre("Roberto Gil");
         System.out.println("Busqueda2");
         for(Cliente c:busqueda2){
             System.out.println(c.getNombre());

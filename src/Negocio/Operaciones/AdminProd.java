@@ -39,7 +39,7 @@ public class AdminProd {
     public List<Producto> getListaProd() {
         return accesoDatosProd.getListaTodos();
     }
-        
+    
     public List<String> getNombresTodosProd() {
         List npd = new ArrayList();
         for(Producto prod : getListaProd()){
