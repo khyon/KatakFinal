@@ -5,12 +5,15 @@
  */
 package DatosPersistentes;
 import Negocio.Entidades.GrupoProds;
+import java.util.List;
 /**
  *
  * @author DEMON
  */
 public class AccesoDatosGrupoProds extends AccesoDatos<GrupoProds> {
-
+    
+    
+    
     @Override
     protected Class getTipoClase() {
         return GrupoProds.class;
