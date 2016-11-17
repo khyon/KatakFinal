@@ -26,10 +26,12 @@ public class Pedidor {
     private String nombreComprador;
     private String direccion; 
     private String telefono;
+    private String hora;
     private Date fechaEntrega ;
     public List<GrupoProds> gruposProdsSeleccionados;
     public List<Producto> prodsDisponibles;
     private Pedido nuevoPedido;
+    private boolean ingresoTelefono = false;
     
            
 
@@ -44,18 +46,30 @@ public class Pedidor {
     
     
 
-    public void setNuevoPedido() {
-        guardarGruposProds(getGruposProdsSeleccionados());
-        this.nuevoPedido = new Pedido(
-                getFechaActual(), 
-                getNombreComprador(), 
-                getDireccion(), 
-                getTelefono(), 
-                getFechaEntrega(), 
-                getGruposProdsSeleccionados());
+    public void construirPedido() {
+//        guardarGruposProds();
+        if(ingresoTelefono){
+            this.nuevoPedido = new Pedido(
+                    getFechaActual(), 
+                    nombreComprador, 
+                    direccion, 
+                    telefono, 
+                    fechaEntrega, 
+                    gruposProdsSeleccionados, 
+                    hora);   
+        }else{
+            this.nuevoPedido = new Pedido(
+                    getFechaActual(), 
+                    nombreComprador, 
+                    direccion, 
+                    fechaEntrega, 
+                    gruposProdsSeleccionados, 
+                    hora);
+        }
     }
     
     public void guardarPedido(){
+        construirPedido();
         adminPedidos.insertarPedidoRegistro(nuevoPedido);
     }
     private Date getFechaActual() {
@@ -64,13 +78,13 @@ public class Pedidor {
         formatoFecha.format(fechaActual);
         return fechaActual;
     }
-
-    private void guardarGruposProds(List<GrupoProds> ListaGrupoProd){
-        ListaGrupoProd.stream().forEach((grupoProds) -> {
-            adminGrupoProd.AgregarGrupoProd(grupoProds);
-        });
-    }
-    
+//
+//    private void guardarGruposProds(){
+//        for(GrupoProds gp : gruposProdsSeleccionados){
+//            adminGrupoProd.AgregarGrupoProd(gp);
+//        }
+//    }
+//    
     public List<String> getNombresTodosProd(){
         return adminProd.getNombresTodosProd();
     }
@@ -97,6 +111,7 @@ public class Pedidor {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+        ingresoTelefono = true;
     }
 
     public Date getFechaEntrega() {
@@ -113,6 +128,24 @@ public class Pedidor {
 
     public void setGruposProdsSeleccionados(List<GrupoProds> gruposProdsSeleccionados) {
         this.gruposProdsSeleccionados = gruposProdsSeleccionados;
+            for(GrupoProds gp : this.gruposProdsSeleccionados){
+                System.out.println(gp.getCostoGrupoProd()+"    try\n\n");
+            }
+        
     }
+    
+    public Producto getProdPorNombre(String nombreProd){
+        return adminProd.getProdPorNombre(nombreProd);
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+    
+    
 
 }

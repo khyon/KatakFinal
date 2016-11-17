@@ -36,6 +36,17 @@ public class AdminProd {
         return accesoDatosProd.getPorNombre(nombreProd);
     }
     
+    public Producto getProdPorNombre(String nombreProd){
+        List<Producto> resultados;
+        resultados = getListaProdPorNombre(nombreProd);
+        if(resultados.size()<2){
+            return resultados.get(0);
+        }else{
+            System.err.println("Producto no unico encontrado");
+            return null;
+        }
+    }
+    
     public List<Producto> getListaProd() {
         return accesoDatosProd.getListaTodos();
     }

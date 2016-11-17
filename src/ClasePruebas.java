@@ -40,49 +40,36 @@ public class ClasePruebas {
         Cliente hGil = new Cliente("Hector Gil", "9999273285", "Calle 76 Las Americas");
         Cliente dGil = new Cliente("Daniel Gil", "test", "Test2");
        
-        Producto ch250g = new Producto("Charritos 250g", 7);
-        
-        GrupoProds paqueteGil = new GrupoProds(ch250g, 300);
+        Producto ch200g = new Producto("Charritos 200g",9);
        
         List<GrupoProds> prodsVendidos = new ArrayList<>();
-        prodsVendidos.add(paqueteGil);
-        
-        Venta v1 = new Venta(hGil, prodsVendidos, fechaActual);
-        v1.calcularCostoTotal();
-        
-        AdminClientes ac = new  AdminClientes();
-        ac.agregarCliente(dGil);
-        ac.agregarCliente(hGil);
-        ac.eliminarCliente(ac.getListaClientesPorNombre("Daniel Gil").get(0));
+//        
+//        AdminClientes ac = new  AdminClientes();
+//        ac.agregarCliente(dGil);
+//        ac.agregarCliente(hGil);
+
         
         AdminProd ap = new AdminProd();
-        ap.AgregarProd(ch250g);
-        
-        AdminGrupoProd agp = new AdminGrupoProd();
-        agp.AgregarGrupoProd(paqueteGil);
-        
-        AdminVentas av = new AdminVentas();
-        av.AgregarVenta(v1);
-        
-        List<Cliente> busqueda1 = ac.getListaClientesPorNombre("Roberto Gil");
-        System.out.println("Busqueda1");
-        for(Cliente c:busqueda1){
-            System.out.println(c.getNombre());
-        }
-        
-        List<Cliente> busqueda2 = ac.getListaClientesPorNombre("Hector Gil");
-        System.out.println("Busqueda2");
-        for(Cliente c:busqueda2){
-            System.out.println(c.getNombre());
-            System.out.println(c.getTelefono());
-        }
+        ap.AgregarProd(ch200g);
         
         
-        List<Producto> test = ap.getListaProd();
-       MenuPrincipal menuPrincipal = new MenuPrincipal();
-        menuPrincipal.setVisible(true);
+//        List<Cliente> busqueda1 = ac.getListaClientesPorNombre("Roberto Gil");
+//        System.out.println("Busqueda1");
+//        for(Cliente c:busqueda1){
+//            System.out.println(c.getNombre());
+//        }
+//        
+//        List<Cliente> busqueda2 = ac.getListaClientesPorNombre("Hector Gil");
+//        System.out.println("Busqueda2");
+//        for(Cliente c:busqueda2){
+//            System.out.println(c.getNombre());
+//            System.out.println(c.getTelefono());
+//        }
+//        
+        
+//        List<Producto> test = ap.getListaProd();
 
-//        System.exit(0);
+    System.exit(0);
     }
     
 }

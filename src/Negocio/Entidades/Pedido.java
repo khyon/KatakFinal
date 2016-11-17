@@ -39,11 +39,13 @@ public class Pedido implements Serializable{
     private String nombreComprador;
     @Column(name = "direccion", nullable = false)
     private String direccion;
-    @Column(name = "telefono", nullable = false)
+    @Column(name = "telefono")
     private String telefono;
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name = "fecha_entrega", nullable = false)
     private Date fechaEntrega;
+    @Column(name = "hora", nullable = false)
+    private String hora;
     @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<GrupoProds> productosVendidos;
     
@@ -56,13 +58,15 @@ public class Pedido implements Serializable{
             String nombreComprador, 
             String direccion, 
             Date fechaEntrega, 
-            List<GrupoProds> productosVendidos
+            List<GrupoProds> productosVendidos,
+            String hora
     ) {
         this.fechaCreacion = fechaCreacion;
         this.nombreComprador = nombreComprador;
         this.direccion = direccion;
         this.fechaEntrega = fechaEntrega;
         this.productosVendidos = productosVendidos;
+        this.hora = hora;
     }
 
     public Pedido(
@@ -71,7 +75,8 @@ public class Pedido implements Serializable{
             String direccion, 
             String telefono, 
             Date fechaEntrega, 
-            List<GrupoProds> productosVendidos
+            List<GrupoProds> productosVendidos,
+            String hora
     ) {
         this.fechaCreacion = fechaCreacion;
         this.nombreComprador = nombreComprador;
@@ -79,6 +84,7 @@ public class Pedido implements Serializable{
         this.telefono = telefono;
         this.fechaEntrega = fechaEntrega;
         this.productosVendidos = productosVendidos;
+        this.hora = hora;
     }
 
     public long getId() {
@@ -135,5 +141,13 @@ public class Pedido implements Serializable{
 
     public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 }
