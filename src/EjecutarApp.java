@@ -7,10 +7,7 @@ import Vista.MenuPrincipal;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author DEMON
- */
+
 public class EjecutarApp {
 
     /**
