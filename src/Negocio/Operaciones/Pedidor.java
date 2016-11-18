@@ -93,7 +93,6 @@ public class Pedidor {
                     gp.getProd(), 
                     gp.getCantidad()
             );
-            System.out.println(gp.getNombreProd()+"   -   "+gp.getCantidad());
             adminGrupoProd.AgregarGrupoProd(nuevoGrupoProd);
             gruposProdsPedido.add(nuevoGrupoProd);
         }

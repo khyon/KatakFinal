@@ -9,12 +9,11 @@ package Vista;
 import DatosPersistentes.ConectaBD;
 import Negocio.Entidades.GrupoProds;
 import Negocio.Entidades.Producto;
+import Negocio.Operaciones.AdminProd;
 import java.awt.Color;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 //import Negocio.Entidades.Inventario;
 
@@ -164,32 +163,33 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
         precioProducto = Double.parseDouble(txtPrecio.getText());
         
         Producto nuevoProducto = new Producto(nombreProducto, precioProducto);
-        
+        AdminProd adminProd = new AdminProd();
+        adminProd.AgregarProd(nuevoProducto);
         
         /*
         Instrucción que se quiere realizar junto con los nombres de las
         columnas y sus parametros correspondientes
         */
-        
-        ConectaBD cnc = new ConectaBD();
-        Connection cnx = cnc.conectar();
-        
-        String sql = " INSERT INTO productos (id, nombre, precio) VALUES ( "+nuevoProducto.getId()+" , '"+nuevoProducto.getNombre()+"' , '"+nuevoProducto.getPrecio()+"' ) ";
-        
-        try {
-            // para que se pueda comunicar la instrucción a la bd
-            Statement instruccion = cnx.createStatement(); //
-            // ejecutando la instrucción y actualizando la bd
-            instruccion.executeUpdate(sql);  
-            JOptionPane.showMessageDialog(null, "Producto agregado satisfactoriamente");
-            //txtCodigo.setText("");
-            txtNombre.setText("");
-            txtPrecio.setText("");
-            
-        } catch (Exception e) {
-           
-            JOptionPane.showMessageDialog(null, "ERROR");
-        }
+//        
+//        ConectaBD cnc = new ConectaBD();
+//        Connection cnx = cnc.conectar();
+//       
+//        String sql = " INSERT INTO productos (id, nombre, precio) VALUES ( "+nuevoProducto.getId()+" , '"+nuevoProducto.getNombre()+"' , '"+nuevoProducto.getPrecio()+"' ) ";
+//        
+//        try {
+//            // para que se pueda comunicar la instrucción a la bd
+//            Statement instruccion = cnx.createStatement(); //
+//            // ejecutando la instrucción y actualizando la bd
+//            instruccion.executeUpdate(sql);  
+//            JOptionPane.showMessageDialog(null, "Producto agregado satisfactoriamente");
+//            //txtCodigo.setText("");
+//            txtNombre.setText("");
+//            txtPrecio.setText("");
+//            
+//        } catch (Exception e) {
+//           
+//            JOptionPane.showMessageDialog(null, "ERROR");
+//        }
         
     }//GEN-LAST:event_btAgregarActionPerformed
 
