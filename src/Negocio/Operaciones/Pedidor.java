@@ -20,25 +20,29 @@ import java.util.List;
  * @author DEMON
  */
 public class Pedidor {
-    private AdminPedidos adminPedidos;
-    private AdminProd adminProd;
-    private AdminGrupoProd adminGrupoProd;
+    private final AdminPedidos adminPedidos;
+    private final AdminProd adminProd;
+    private final AdminGrupoProd adminGrupoProd;
     private String nombreComprador;
     private String direccion; 
     private String telefono;
     private String hora;
     private Date fechaEntrega ;
-    public List<GrupoProds> gruposProdsSeleccionados;
+    public List<GrupoProds> gruposProdsInput;
+    public List<GrupoProds> gruposProdsPedido;
     public List<Producto> prodsDisponibles;
-    private Pedido nuevoPedido;
+    private Pedido nuevoPedido = new Pedido();
+    private double costo;
     private boolean ingresoTelefono = false;
     
            
 
     public Pedidor(){
         adminPedidos = new AdminPedidos();
+        adminGrupoProd = new AdminGrupoProd();
         adminProd = new AdminProd();
-        gruposProdsSeleccionados = new ArrayList<>();
+        gruposProdsInput = new ArrayList<>();
+        gruposProdsPedido = new ArrayList<>();
         nuevoPedido = new Pedido();
         prodsDisponibles = adminProd.getListaProd();
         
@@ -47,7 +51,6 @@ public class Pedidor {
     
 
     public void construirPedido() {
-//        guardarGruposProds();
         if(ingresoTelefono){
             this.nuevoPedido = new Pedido(
                     getFechaActual(), 
@@ -55,22 +58,27 @@ public class Pedidor {
                     direccion, 
                     telefono, 
                     fechaEntrega, 
-                    gruposProdsSeleccionados, 
-                    hora);   
+                    gruposProdsPedido, 
+                    hora,
+                    costo
+            );   
         }else{
             this.nuevoPedido = new Pedido(
                     getFechaActual(), 
                     nombreComprador, 
                     direccion, 
                     fechaEntrega, 
-                    gruposProdsSeleccionados, 
-                    hora);
+                    gruposProdsPedido, 
+                    hora,
+                    costo
+            );
         }
     }
     
     public void guardarPedido(){
+        guardarGruposProds();
         construirPedido();
-        adminPedidos.insertarPedidoRegistro(nuevoPedido);
+        adminPedidos.agregarPedidoRegistro(nuevoPedido);
     }
     private Date getFechaActual() {
         Date fechaActual = new Date();
@@ -78,13 +86,19 @@ public class Pedidor {
         formatoFecha.format(fechaActual);
         return fechaActual;
     }
-//
-//    private void guardarGruposProds(){
-//        for(GrupoProds gp : gruposProdsSeleccionados){
-//            adminGrupoProd.AgregarGrupoProd(gp);
-//        }
-//    }
-//    
+
+    private void guardarGruposProds(){
+        for(GrupoProds gp : gruposProdsInput){
+            GrupoProds nuevoGrupoProd = new GrupoProds(
+                    gp.getProd(), 
+                    gp.getCantidad()
+            );
+            System.out.println(gp.getNombreProd()+"   -   "+gp.getCantidad());
+            adminGrupoProd.AgregarGrupoProd(nuevoGrupoProd);
+            gruposProdsPedido.add(nuevoGrupoProd);
+        }
+    }
+    
     public List<String> getNombresTodosProd(){
         return adminProd.getNombresTodosProd();
     }
@@ -123,15 +137,11 @@ public class Pedidor {
     }
 
     public List<GrupoProds> getGruposProdsSeleccionados() {
-        return gruposProdsSeleccionados;
+        return gruposProdsInput;
     }
 
     public void setGruposProdsSeleccionados(List<GrupoProds> gruposProdsSeleccionados) {
-        this.gruposProdsSeleccionados = gruposProdsSeleccionados;
-            for(GrupoProds gp : this.gruposProdsSeleccionados){
-                System.out.println(gp.getCostoGrupoProd()+"    try\n\n");
-            }
-        
+        this.gruposProdsInput = gruposProdsSeleccionados;       
     }
     
     public Producto getProdPorNombre(String nombreProd){
@@ -145,7 +155,13 @@ public class Pedidor {
     public void setHora(String hora) {
         this.hora = hora;
     }
-    
-    
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
 
 }

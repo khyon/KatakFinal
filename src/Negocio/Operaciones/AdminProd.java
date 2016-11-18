@@ -54,7 +54,7 @@ public class AdminProd {
     public List<String> getNombresTodosProd() {
         List npd = new ArrayList();
         for(Producto prod : getListaProd()){
-            npd.add(prod.getNombreProducto());
+            npd.add(prod.getNombre());
         }
         return npd;
     }

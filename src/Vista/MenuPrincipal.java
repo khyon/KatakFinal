@@ -5,7 +5,6 @@
  */
 package Vista;
 
-import Vista.Mario.FrmPedidos;
 
 /**
  *
@@ -18,6 +17,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -140,6 +140,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMenuSalirActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btMenuSalirActionPerformed
 

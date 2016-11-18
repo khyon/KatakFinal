@@ -22,7 +22,7 @@ public class ConectaBD {
            Class.forName("com.mysql.jdbc.Driver");
            
            //Se establece la conexión a la base de datos
-           conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/katakdb", "root", "");
+           conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/katakdb", "adminkatak", "password");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se ha podido establecer una conexion con la BD" + e.getMessage());
         }

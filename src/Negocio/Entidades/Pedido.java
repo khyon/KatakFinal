@@ -48,6 +48,8 @@ public class Pedido implements Serializable{
     private String hora;
     @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<GrupoProds> productosVendidos;
+    @Column (name = "costo", nullable = false)
+    private double costoTotal;
     
     public Pedido(){
         
@@ -59,7 +61,8 @@ public class Pedido implements Serializable{
             String direccion, 
             Date fechaEntrega, 
             List<GrupoProds> productosVendidos,
-            String hora
+            String hora,
+            double costoTotal
     ) {
         this.fechaCreacion = fechaCreacion;
         this.nombreComprador = nombreComprador;
@@ -67,6 +70,7 @@ public class Pedido implements Serializable{
         this.fechaEntrega = fechaEntrega;
         this.productosVendidos = productosVendidos;
         this.hora = hora;
+        this.costoTotal = costoTotal;
     }
 
     public Pedido(
@@ -76,7 +80,8 @@ public class Pedido implements Serializable{
             String telefono, 
             Date fechaEntrega, 
             List<GrupoProds> productosVendidos,
-            String hora
+            String hora,
+            double costoTotal
     ) {
         this.fechaCreacion = fechaCreacion;
         this.nombreComprador = nombreComprador;
@@ -85,6 +90,7 @@ public class Pedido implements Serializable{
         this.fechaEntrega = fechaEntrega;
         this.productosVendidos = productosVendidos;
         this.hora = hora;
+        this.costoTotal = costoTotal;
     }
 
     public long getId() {
@@ -150,4 +156,13 @@ public class Pedido implements Serializable{
     public void setHora(String hora) {
         this.hora = hora;
     }
+
+    public double getCostoTotal() {
+        return costoTotal;
+    }
+
+    public void setCostoTotal(double costoTotal) {
+        this.costoTotal = costoTotal;
+    }
+   
 }

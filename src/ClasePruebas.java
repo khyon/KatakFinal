@@ -40,7 +40,7 @@ public class ClasePruebas {
         Cliente hGil = new Cliente("Hector Gil", "9999273285", "Calle 76 Las Americas");
         Cliente dGil = new Cliente("Daniel Gil", "test", "Test2");
        
-        Producto ch200g = new Producto(1,"Charritos 200g",9);
+        Producto ch200g = new Producto("Charritos 200g",9);
        
         List<GrupoProds> prodsVendidos = new ArrayList<>();
 //        

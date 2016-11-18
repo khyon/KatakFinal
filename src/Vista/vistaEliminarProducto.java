@@ -5,7 +5,7 @@
  */
 package Vista;
 
-import Vista.Mario.*;
+
 import DatosPersistentes.ConectaBD;
 import java.awt.Color;
 import java.sql.*;
@@ -47,7 +47,7 @@ public class vistaEliminarProducto extends javax.swing.JFrame {
             ResultSet conjuntoResultados = instruccion.executeQuery(sql);
             
             while(conjuntoResultados.next()){
-                capturaProductos = conjuntoResultados.getString("nombreProducto");
+                capturaProductos = conjuntoResultados.getString("nombre");
                 this.comboProductos.addItem(capturaProductos);
             }
             
@@ -143,12 +143,12 @@ public class vistaEliminarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarActionPerformed
-        String nombreProducto = objectToString(this.comboProductos.getSelectedItem());
+        String nombre = objectToString(this.comboProductos.getSelectedItem());
         
         ConectaBD cnc = new ConectaBD();
         Connection cnx = cnc.conectar();
         
-        String borrarNombre = "DELETE FROM productos WHERE nombreProducto = '"+nombreProducto+"'";
+        String borrarNombre = "DELETE FROM productos WHERE nombre = '"+nombre+"'";
         
         try {
             //Se crea un statement para que se pueda comunicar la instrucción a la bd
@@ -177,7 +177,7 @@ public class vistaEliminarProducto extends javax.swing.JFrame {
 
         try {
             Statement instruccion2 = cnx.createStatement();
-            ResultSet rs1 = instruccion2.executeQuery("select * from productos where nombreProducto = '"
+            ResultSet rs1 = instruccion2.executeQuery("select * from productos where nombre = '"
                 + this.comboProductos.getSelectedItem()+ "'");
             rs1.next();
         } catch (SQLException e) {

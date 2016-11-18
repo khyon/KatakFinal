@@ -419,7 +419,7 @@ public class FrmVentas extends javax.swing.JFrame {
                                 double precioProducto
                                 ){
         
-            ArregloProductos.add(new Producto(idProducto, nombreProducto, precioProducto));
+            ArregloProductos.add(new Producto(nombreProducto, precioProducto));
     }
     
     
@@ -449,12 +449,12 @@ public class FrmVentas extends javax.swing.JFrame {
         for(int i=0; i<ArregloProductos.size(); i++){
             Vector<Object> row = new Vector<Object>();
             
-            row.add(((Producto) ArregloProductos.get(i)).getIdProducto() );
-            row.add(((Producto) ArregloProductos.get(i)).getNombreProducto() );
+            row.add(((Producto) ArregloProductos.get(i)).getId() );
+            row.add(((Producto) ArregloProductos.get(i)).getNombre() );
             //row.add(((Producto) ArregloProductos.get(i)).getCantidadProducto() );
-            row.add(((Producto) ArregloProductos.get(i)).getPrecioProducto() );
+            row.add(((Producto) ArregloProductos.get(i)).getPrecio() );
             
-            sumaTotal = sumaTotal + ((Producto) ArregloProductos.get(i)).getPrecioProducto();
+            sumaTotal = sumaTotal + ((Producto) ArregloProductos.get(i)).getPrecio();
             data.add(row);            
         }
         

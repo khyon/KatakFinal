@@ -35,11 +35,11 @@ public class ModeloTablaProds extends ModeloTabla<Producto>{
         
         switch(indiceColumna) {
             case INDICE_ID:
-                return prod.getIdProducto();
+                return prod.getId();
             case INDICE_NOMBRE:
-                return prod.getNombreProducto();
+                return prod.getNombre();
             case INDICE_PRECIO:
-                return prod.getPrecioProducto();
+                return prod.getPrecio();
             default:
                 return null;
         }

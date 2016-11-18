@@ -2,8 +2,8 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
-package Negocio.Entidades;
+ 
+
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -16,57 +16,61 @@ import javax.persistence.Table;
  
     CLASE: {@link Producto}
     
-    @AUTOR: Roberto Gil Flores
+    @AUTOR: Roberto Gil Flores y Mario Lopez Duran
 
  **********************************************************************/
+/*
 @Entity
 @Table (name = "productos")
 public class Producto implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int idProducto;
     @Column(name = "nombre", nullable = false, unique = true)
-    private String nombre;
+    private String nombreProducto;
     @Column(name = "precio", nullable = false)
-    private double precio;
+    private double precioProducto;
 
-    public Producto(){
+    //Constructor
+
+    public Producto(String nombreProducto, 
+            double precioProducto) {
         
+        this.nombreProducto = nombreProducto;
+        this.precioProducto = precioProducto;
     }
 
-    public Producto(
-            String nombre, 
-            double precio
-    ) {
-        this.nombre = nombre;
-        this.precio = precio;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
-    public long getId() {
-        return id;
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    //Metodos Set
+    public void setPrecioProducto(double precioProducto) {
+        this.precioProducto = precioProducto;
     }
 
-    public String getNombre() {
-        return nombre;
+    //Metodos Get
+
+    public int getIdProducto() {
+        return idProducto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getNombreProducto() {
+        return nombreProducto;
     }
 
-    public double getPrecio() {
-        return precio;
+    public double getPrecioProducto() {
+        return precioProducto;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
     
-
+    
+    
     
 }
+*/

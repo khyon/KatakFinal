@@ -21,7 +21,7 @@ public class AdminPedidos {
         this.datosPedido = new AccesoDatosPedido();
     }
     
-    public void insertarPedidoRegistro(Pedido pedidoNuevo){
+    public void agregarPedidoRegistro(Pedido pedidoNuevo){
         datosPedido.insertar(pedidoNuevo);
     }
     

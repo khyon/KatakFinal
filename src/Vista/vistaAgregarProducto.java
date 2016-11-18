@@ -7,9 +7,12 @@ package Vista;
 
 
 import DatosPersistentes.ConectaBD;
+import Negocio.Entidades.GrupoProds;
 import Negocio.Entidades.Producto;
 import java.awt.Color;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -20,6 +23,8 @@ import javax.swing.JOptionPane;
  * @author Mario
  */
 public class vistaAgregarProducto extends javax.swing.JFrame {
+    
+    List<GrupoProds> gruposProdActuales = new ArrayList<>();
 
     /**
      * Creates new form FrmProductos
@@ -39,10 +44,8 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
     private void initComponents() {
 
         lbProductos = new javax.swing.JLabel();
-        lbCodigo = new javax.swing.JLabel();
         lnNombre = new javax.swing.JLabel();
         lbPrecio = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         btAgregar = new javax.swing.JButton();
@@ -53,8 +56,6 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
         lbProductos.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lbProductos.setForeground(new java.awt.Color(0, 0, 255));
         lbProductos.setText("Nuevo Producto");
-
-        lbCodigo.setText("Codigo:");
 
         lnNombre.setText("Nombre:");
 
@@ -90,13 +91,10 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lnNombre)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbCodigo, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbPrecio)))
+                            .addComponent(lbPrecio))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                            .addComponent(txtCodigo)
                             .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -109,11 +107,7 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(lbProductos)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbCodigo)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lnNombre)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -153,7 +147,7 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
         Obtenemos el texto que se ingresó en el campo txtCodigo, para luego
         este convertirlo en un numero para asginarlo como ID
         */
-        idProducto = Integer.parseInt(txtCodigo.getText());
+        //idProducto = Integer.parseInt(txtCodigo.getText());
         
         
         /*
@@ -169,7 +163,7 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
         */
         precioProducto = Double.parseDouble(txtPrecio.getText());
         
-        Producto nuevoProducto = new Producto(idProducto, nombreProducto, precioProducto);
+        Producto nuevoProducto = new Producto(nombreProducto, precioProducto);
         
         
         /*
@@ -180,7 +174,7 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
         ConectaBD cnc = new ConectaBD();
         Connection cnx = cnc.conectar();
         
-        String sql = " INSERT INTO productos (idProducto, nombreProducto, precioProducto) VALUES ( "+nuevoProducto.getIdProducto()+" , '"+nuevoProducto.getNombreProducto()+"' , '"+nuevoProducto.getPrecioProducto()+"' ) ";
+        String sql = " INSERT INTO productos (id, nombre, precio) VALUES ( "+nuevoProducto.getId()+" , '"+nuevoProducto.getNombre()+"' , '"+nuevoProducto.getPrecio()+"' ) ";
         
         try {
             // para que se pueda comunicar la instrucción a la bd
@@ -188,7 +182,7 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
             // ejecutando la instrucción y actualizando la bd
             instruccion.executeUpdate(sql);  
             JOptionPane.showMessageDialog(null, "Producto agregado satisfactoriamente");
-            txtCodigo.setText("");
+            //txtCodigo.setText("");
             txtNombre.setText("");
             txtPrecio.setText("");
             
@@ -274,11 +268,9 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAgregar;
     private javax.swing.JButton btCancelar;
-    private javax.swing.JLabel lbCodigo;
     private javax.swing.JLabel lbPrecio;
     private javax.swing.JLabel lbProductos;
     private javax.swing.JLabel lnNombre;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
