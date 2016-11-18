@@ -103,7 +103,7 @@ public class Venta implements Serializable{
     }
     
     public String getNombreCliente(){
-        return cliente.getNombre();
+        return cliente.getNombreCliente();
     }
     
     public void calcularCostoTotal(){

@@ -17,7 +17,7 @@ import javax.persistence.Table;
  
     CLASE: {@link Cliente}
     
-    AUTOR: Roberto Gil Flores
+    AUTOR: Roberto Gil Flores y Mario Lopez Duran
 
  **********************************************************************/
 
@@ -27,82 +27,61 @@ public class Cliente implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "nombre", nullable = false)
-    private String nombre;
-    @Column(name = "telefono", nullable = false)
-    private String telefono;
-    @Column(name = "direccion", nullable = false)
-    private String direccion;
-    @Column(name = "e_mail")
-    private String email;
+    private int idCliente;
+    @Column(name = "nombreCliente", nullable = false)
+    private String nombreCliente;
+    @Column(name = "telefonoCliente", nullable = false)
+    private String telefonoCliente;
+    @Column(name = "direccionCliente", nullable = false)
+    private String direccionCliente;
 
-    public Cliente(){
+ 
+    
+//Constructor
+
+    public Cliente(String nombreCliente, String telefonoCliente, String direccionCliente) {
         
+        this.nombreCliente = nombreCliente;
+        this.telefonoCliente = telefonoCliente;
+        this.direccionCliente = direccionCliente;
     }
     
-    public Cliente(
-             String nombre,
-             String telefono,
-             String direccion
-    )  {
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.direccion = direccion;
+    //Metodos Get
+
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public Cliente(
-            String nombre, 
-            String telefono, 
-            String direccion, 
-            String email
-    ) {
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.email = email;
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public String getTelefonoCliente() {
+        return telefonoCliente;
+    }
+
+    public String getDireccionCliente() {
+        return direccionCliente;
     }
     
+    //Metodos Set
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public void setTelefonoCliente(String telefonoCliente) {
+        this.telefonoCliente = telefonoCliente;
+    }
+
+    public void setDireccionCliente(String direccionCliente) {
+        this.direccionCliente = direccionCliente;
+    }
     
-    
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
     
 }

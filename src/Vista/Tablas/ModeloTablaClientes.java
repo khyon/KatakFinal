@@ -34,11 +34,11 @@ public class ModeloTablaClientes extends ModeloTabla<Cliente> {
         
         switch(indiceColumna){
             case INDICE_NOMBRE:
-                return cliente.getNombre();
+                return cliente.getNombreCliente();
             case INDICE_DIRECCION:
-                return cliente.getDireccion();
+                return cliente.getDireccionCliente();
             case INDICE_TELEFONO:
-                return cliente.getTelefono();
+                return cliente.getTelefonoCliente();
             default:
                 return null;
         }

@@ -105,8 +105,8 @@ public class vistaClientes extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 Cliente nuevoCliente=new Cliente(
                         panelAgregarEditar.obtenerCampoNombre(), 
-                        panelAgregarEditar.obtenerCampoDireccion(), 
-                        panelAgregarEditar.obtenerCampoTelefono());
+                        panelAgregarEditar.obtenerCampoTelefono(), 
+                        panelAgregarEditar.obtenerCampoDireccion());
                 if(modoEdicionActivo){
                     administrador.editarCliente(nuevoCliente);
                 }else{
@@ -144,9 +144,9 @@ public class vistaClientes extends javax.swing.JFrame {
         DefaultTableModel modelo=(DefaultTableModel)obtenerModeloTabla();
         modelo.setRowCount(0);
         for(int i=0;i<listaClientes.size();i++){
-            modelo.addRow(new Object[]{listaClientes.get(i).getNombre(),
-                                       listaClientes.get(i).getDireccion(),
-                                       listaClientes.get(i).getTelefono()});
+            modelo.addRow(new Object[]{listaClientes.get(i).getNombreCliente(),
+                                       listaClientes.get(i).getTelefonoCliente(),
+                                       listaClientes.get(i).getDireccionCliente()});
             
         }
     }

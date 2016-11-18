@@ -71,7 +71,7 @@ public class GrupoProds implements Serializable{
     }
     
     public String getNombreProd(){
-        return prod.getNombre();
+        return prod.getNombreProducto();
     }
 
     public double getCostoGrupoProd() {
@@ -87,7 +87,7 @@ public class GrupoProds implements Serializable{
     }
     
     public double getCalculoCostoGrupo(){
-        return (cantidad * prod.getPrecio());
+        return (cantidad * prod.getPrecioProducto());
     }
     
 }
