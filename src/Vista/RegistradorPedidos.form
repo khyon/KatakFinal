@@ -92,7 +92,9 @@
                               <Group type="102" attributes="0">
                                   <Component id="comboFecha" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="LabelHora" min="-2" pref="98" max="-2" attributes="0"/>
+                                  <Component id="LabelHora" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="TextoHora" min="-2" pref="106" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Component id="TextoTelefono" max="32767" attributes="0"/>
@@ -124,6 +126,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="LabelFecha" min="-2" max="-2" attributes="0"/>
                       <Component id="comboFecha" min="-2" max="-2" attributes="0"/>
+                      <Component id="TextoHora" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="LabelHora" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="12" max="32767" attributes="0"/>
@@ -166,14 +169,13 @@
           </Properties>
         </Component>
         <Component class="datechooser.beans.DateChooserCombo" name="comboFecha">
-          <Properties>
-            <Property name="dch_combo_dateFormat" type="int" value="2"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="LabelHora">
           <Properties>
             <Property name="text" type="java.lang.String" value="Hora *"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="TextoHora">
         </Component>
       </SubComponents>
     </Container>
@@ -203,10 +205,10 @@
                           <Component id="TextoCantidad" min="-2" pref="108" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="BotonAgregar" pref="80" max="32767" attributes="0"/>
-                              <Component id="BotonEliminar" max="32767" attributes="0"/>
+                              <Component id="BotonAgregar" max="32767" attributes="0"/>
+                              <Component id="BotonEliminar" min="-2" pref="71" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="29" max="32767" attributes="0"/>
+                          <EmptySpace pref="38" max="32767" attributes="0"/>
                           <Component id="LabelTotal" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="TextoTotal" min="-2" pref="61" max="-2" attributes="0"/>

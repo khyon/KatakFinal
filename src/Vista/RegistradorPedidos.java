@@ -11,8 +11,6 @@ import javax.swing.DefaultComboBoxModel;
 import Vista.Tablas.ModeloTablaGrupoProd;
 import Negocio.Entidades.GrupoProds;
 import Negocio.Entidades.Producto;
-import Negocio.Entidades.Reloj;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,13 +31,6 @@ public class RegistradorPedidos extends javax.swing.JFrame {
         initComponents();
         rellenarListaGrupoProd(gruposProdActuales);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
-        Reloj hilo = new Reloj(LabelHora);
-        hilo.start();
-        
-        Calendar unCalendario = Calendar.getInstance();
-        DateFormat unFormatoFecha = DateFormat.getDateInstance(DateFormat.FULL);
-        LabelHora.setText("" + unFormatoFecha.format(unCalendario.getTime()));
     }
 
     /**
@@ -62,6 +53,7 @@ public class RegistradorPedidos extends javax.swing.JFrame {
         LabelFecha = new javax.swing.JLabel();
         comboFecha = new datechooser.beans.DateChooserCombo();
         LabelHora = new javax.swing.JLabel();
+        TextoHora = new javax.swing.JTextField();
         PanelGruposProds = new javax.swing.JPanel();
         ScrollGruposProd = new javax.swing.JScrollPane();
         TablaGruposProd = new javax.swing.JTable();
@@ -88,8 +80,6 @@ public class RegistradorPedidos extends javax.swing.JFrame {
         LabelCampos.setText("* Campos obligatorios");
 
         LabelFecha.setText("Fecha *");
-
-        comboFecha.setFormat(2);
 
         LabelHora.setText("Hora *");
 
@@ -121,7 +111,9 @@ public class RegistradorPedidos extends javax.swing.JFrame {
                             .addGroup(PanelCompradorLayout.createSequentialGroup()
                                 .addComponent(comboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(LabelHora, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(LabelHora)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TextoHora, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(TextoTelefono)))))
         );
@@ -144,6 +136,7 @@ public class RegistradorPedidos extends javax.swing.JFrame {
                 .addGroup(PanelCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(LabelFecha)
                     .addComponent(comboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelHora))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(LabelCampos)
@@ -205,9 +198,9 @@ public class RegistradorPedidos extends javax.swing.JFrame {
                         .addComponent(TextoCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(PanelGruposProdsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BotonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                            .addComponent(BotonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                            .addComponent(BotonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BotonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(LabelTotal)
                         .addGap(18, 18, 18)
                         .addComponent(TextoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -340,7 +333,7 @@ public class RegistradorPedidos extends javax.swing.JFrame {
     }
     
     private String getHora() {
-        return LabelHora.getText();
+        return TextoHora.getText();
     }
     
     private String getDireccion(){
@@ -439,6 +432,7 @@ public class RegistradorPedidos extends javax.swing.JFrame {
     private javax.swing.JTextField TextoCantidad;
     private javax.swing.JTextField TextoComprador;
     private javax.swing.JTextField TextoDireccion;
+    private javax.swing.JTextField TextoHora;
     private javax.swing.JTextField TextoTelefono;
     private javax.swing.JTextField TextoTotal;
     private datechooser.beans.DateChooserCombo comboFecha;
