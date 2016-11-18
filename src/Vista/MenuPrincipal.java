@@ -125,7 +125,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btMenuVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMenuVentasActionPerformed
         this.dispose();
-        new vistaRegistrarVentas().setVisible(true);
+        vistaRegistrarVentas registradorVentas = new vistaRegistrarVentas();
+        registradorVentas.setVisible(true);
     }//GEN-LAST:event_btMenuVentasActionPerformed
 
     private void btMenuProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMenuProductosActionPerformed

@@ -5,17 +5,41 @@
  */
 package Vista;
 
+import DatosPersistentes.ConectaBD;
+import Negocio.Entidades.GrupoProds;
+import Negocio.Entidades.Producto;
+
+import Negocio.Operaciones.Vendedor;
+import Vista.Tablas.ModeloTablaGrupoProd;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author Bernardo Espinoza
+ * @author Mario Lopez
+ * @author Vista: Bernardo Espinoza
  */
 public class vistaRegistrarVentas extends javax.swing.JFrame {
+    
+    Vendedor vendedor = new Vendedor();
+    List<String> nombresProdsDisp = vendedor.getNombresTodosProd();
+    List<GrupoProds> gruposProdActuales = new ArrayList<>();
+    double costoTotal;
 
     /**
      * Creates new form vistaVentas
      */
     public vistaRegistrarVentas() {
-        initComponents();        
+        initComponents(); 
+        rellenarListaGrupoProd(gruposProdActuales);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        desplegarNombresClientes();
     }
 
     /**
@@ -28,122 +52,148 @@ public class vistaRegistrarVentas extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelRegistrarVentas = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jComboBox2 = new javax.swing.JComboBox<String>();
-        jButton1 = new javax.swing.JButton();
+        btAgregar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        Cantidad = new javax.swing.JTextField();
-        BotonQuitar = new javax.swing.JButton();
+        TextoTotal = new javax.swing.JTextField();
+        btRegistrar = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
+        TextoCantidad = new javax.swing.JTextField();
+        btQuitar = new javax.swing.JButton();
         LabelUnidades = new javax.swing.JLabel();
+        LabelFecha = new javax.swing.JLabel();
+        comboFecha = new datechooser.beans.DateChooserCombo();
+        lbTituloVentas = new javax.swing.JLabel();
+        ScrollGruposProd = new javax.swing.JScrollPane();
+        TablaGruposProd = new javax.swing.JTable();
+        comboProductos = new javax.swing.JComboBox<String>();
+        comboClientes = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PanelRegistrarVentas.setToolTipText("");
 
-        jLabel1.setText("Ventas");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cliente 1", "Cliente 2", "Cliente 3", "Cliente 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        btAgregar.setText("Agregar");
+        btAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                btAgregarActionPerformed(evt);
             }
         });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Producto", "Precio unitario", "Unidades compradas", "Monto"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Producto 1", "Producto 2", "Producto 3", "Producto 4" }));
-
-        jButton1.setText("Agregar");
 
         jLabel2.setText("Total");
 
-        jButton2.setText("Registrar Venta");
-
-        jButton3.setText("Regresar al menu");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btRegistrar.setText("Registrar Venta");
+        btRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btRegistrarActionPerformed(evt);
             }
         });
 
-        Cantidad.setToolTipText("Cantidad");
+        btCancelar.setText("Regresar al menu");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
-        BotonQuitar.setText("Quitar");
+        TextoCantidad.setToolTipText("Cantidad");
+
+        btQuitar.setText("Quitar");
+        btQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btQuitarActionPerformed(evt);
+            }
+        });
 
         LabelUnidades.setText("Unidades");
+
+        LabelFecha.setText("Fecha *");
+
+        lbTituloVentas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lbTituloVentas.setForeground(new java.awt.Color(255, 0, 0));
+        lbTituloVentas.setText("Ventas");
+
+        TablaGruposProd.setModel(new ModeloTablaGrupoProd());
+        ScrollGruposProd.setViewportView(TablaGruposProd);
+
+        comboProductos.setModel(new DefaultComboBoxModel(nombresProdsDisp.toArray()));
+        comboProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboProductosActionPerformed(evt);
+            }
+        });
+
+        comboClientes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout PanelRegistrarVentasLayout = new javax.swing.GroupLayout(PanelRegistrarVentas);
         PanelRegistrarVentas.setLayout(PanelRegistrarVentasLayout);
         PanelRegistrarVentasLayout.setHorizontalGroup(
             PanelRegistrarVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistrarVentasLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(233, 233, 233))
             .addGroup(PanelRegistrarVentasLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(PanelRegistrarVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
                     .addGroup(PanelRegistrarVentasLayout.createSequentialGroup()
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LabelUnidades)
-                        .addGap(34, 34, 34)
-                        .addComponent(jButton1)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistrarVentasLayout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addGroup(PanelRegistrarVentasLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(PanelRegistrarVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BotonQuitar))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(PanelRegistrarVentasLayout.createSequentialGroup()
+                                .addComponent(comboProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TextoCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelUnidades)
+                                .addGap(34, 34, 34)
+                                .addComponent(btAgregar)
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(TextoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistrarVentasLayout.createSequentialGroup()
+                                .addComponent(btCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btRegistrar))
+                            .addGroup(PanelRegistrarVentasLayout.createSequentialGroup()
+                                .addComponent(btQuitar)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(PanelRegistrarVentasLayout.createSequentialGroup()
+                                .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(LabelFecha)
+                                .addGap(24, 24, 24)
+                                .addComponent(comboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(PanelRegistrarVentasLayout.createSequentialGroup()
+                        .addGap(210, 210, 210)
+                        .addComponent(lbTituloVentas)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(PanelRegistrarVentasLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(ScrollGruposProd)))
                 .addContainerGap())
         );
         PanelRegistrarVentasLayout.setVerticalGroup(
             PanelRegistrarVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelRegistrarVentasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                .addGap(4, 4, 4)
+                .addComponent(lbTituloVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(PanelRegistrarVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRegistrarVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(LabelFecha)
+                        .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelRegistrarVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelUnidades))
+                .addComponent(ScrollGruposProd, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BotonQuitar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(PanelRegistrarVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btAgregar)
+                    .addComponent(jLabel2)
+                    .addComponent(TextoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextoCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabelUnidades)
+                    .addComponent(comboProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btQuitar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelRegistrarVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btRegistrar)
+                    .addComponent(btCancelar))
                 .addContainerGap())
         );
 
@@ -169,66 +219,164 @@ public class vistaRegistrarVentas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
         this.dispose();
         new MenuPrincipal().setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btCancelarActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void btRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        EnviarInputs();
+        FinalizarRegistroPedido();
+    }//GEN-LAST:event_btRegistrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(vistaRegistrarVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(vistaRegistrarVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(vistaRegistrarVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(vistaRegistrarVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarActionPerformed
+        // TODO add your handling code here:
+        agregarNuevoGrupoProd(comboProductos.getSelectedItem().toString(),TextoCantidad.getText());
+        actualizarListaGrupoProd();
+        actualizarCostoTotal();
+    }//GEN-LAST:event_btAgregarActionPerformed
+
+    private void btQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQuitarActionPerformed
+        // TODO add your handling code here:
+        gruposProdActuales.remove(getGrupoProdSeleccionado());
+        actualizarListaGrupoProd();
+        actualizarCostoTotal();
+    }//GEN-LAST:event_btQuitarActionPerformed
+
+    private void comboProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProductosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboProductosActionPerformed
+
+    private void agregarNuevoGrupoProd(String NombreProd, String InputCantidad) {
+        gruposProdActuales.add(crearNuevoGrupoProd(NombreProd, InputCantidad));
+    }
+    
+    private GrupoProds crearNuevoGrupoProd(String NombreProd, String InputCantidad){
+        Producto prod = vendedor.getProdPorNombre(NombreProd);
+        int cantidad = Integer.parseInt(InputCantidad);
+        GrupoProds nuevoGrupoProd = new GrupoProds(prod, cantidad);
+        return nuevoGrupoProd;
+    }
+
+    private void actualizarListaGrupoProd() {
+        vaciarListaGrupoProd();
+        rellenarListaGrupoProd(gruposProdActuales);
+    }
+
+    private void vaciarListaGrupoProd() {
+        ModeloTablaGrupoProd mtgp = getModeloTablaGrupoProd();
+        int rowCount = mtgp.getRowCount();
+        for (int i = rowCount - 1; 0 <= i; i--) {
+            mtgp.removerFila(i);
+        }    
+    }
+
+    private void rellenarListaGrupoProd(List<GrupoProds> gruposProdActuales) {
+        getModeloTablaGrupoProd().agregarVariasFilas(gruposProdActuales);
+    }
+
+    private ModeloTablaGrupoProd getModeloTablaGrupoProd() {
+        return (ModeloTablaGrupoProd) TablaGruposProd.getModel();
+    }
+    
+    private void EnviarInputs() {
+        vendedor.setGruposProdsSeleccionados(getGruposProdActuales());
+        
+        vendedor.setCosto(getCostoTotal());
+        
+        vendedor.guardarVenta();
+        
+    }
+
+    public List<GrupoProds> getGruposProdActuales() {
+        return gruposProdActuales;
+    }
+
+    public void setGruposProdActuales(List<GrupoProds> gruposProdActuales) {
+        this.gruposProdActuales = gruposProdActuales;
+    }
+
+    private boolean seSeleccionoFilaVacia() {
+        int INDICE_NINGUNA_FILA = -1;
+        
+        return (getFilaSeleccionada() == INDICE_NINGUNA_FILA);    }
+
+    private int getFilaSeleccionada() {
+        return TablaGruposProd.getSelectedRow();
+    }
+
+    private void actualizarCostoTotal() {
+        costoTotal = 0;
+        for(GrupoProds actual : gruposProdActuales){
+            costoTotal += actual.getCostoGrupoProd();
         }
-        //</editor-fold>
-        //</editor-fold>
+        TextoTotal.setText(String.valueOf(costoTotal));
+    }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new vistaRegistrarVentas().setVisible(true);
+    public double getCostoTotal() {
+        return costoTotal;
+    }
+
+    private GrupoProds getGrupoProdSeleccionado() {
+        if(!seSeleccionoFilaVacia()){
+            int filaSeleccionada = getFilaSeleccionada();
+            GrupoProds grupoSeleccionado = getModeloTablaGrupoProd().getFila(filaSeleccionada);
+            return grupoSeleccionado;
+        }else{
+            System.err.println("No se selecciono una fila");
+            return null;
+        }    
+    }
+    
+        public void desplegarNombresClientes(){
+        ConectaBD cnc = new ConectaBD();
+        Connection cnx = cnc.conectar();
+        
+        String capturaClientes = "";
+        String sql = "select * from clientes";
+        this.comboClientes.removeAllItems();
+        
+        
+        //Agrega los nombres de los productos al ComboBox        
+        try {
+            Statement instruccion = cnx.createStatement();
+            ResultSet conjuntoResultados = instruccion.executeQuery(sql);
+            
+            while(conjuntoResultados.next()){
+                capturaClientes = conjuntoResultados.getString("nombreCliente");
+                this.comboClientes.addItem(capturaClientes);
             }
-        });
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+    }
+
+    private void FinalizarRegistroPedido() {
+        this.setVisible(false);
+        this.dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonQuitar;
-    private javax.swing.JTextField Cantidad;
+    private javax.swing.JLabel LabelFecha;
     private javax.swing.JLabel LabelUnidades;
     private javax.swing.JPanel PanelRegistrarVentas;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane ScrollGruposProd;
+    private javax.swing.JTable TablaGruposProd;
+    private javax.swing.JTextField TextoCantidad;
+    private javax.swing.JTextField TextoTotal;
+    private javax.swing.JButton btAgregar;
+    private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btQuitar;
+    private javax.swing.JButton btRegistrar;
+    private javax.swing.JComboBox comboClientes;
+    private datechooser.beans.DateChooserCombo comboFecha;
+    private javax.swing.JComboBox<String> comboProductos;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lbTituloVentas;
     // End of variables declaration//GEN-END:variables
 }

@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import Negocio.Entidades.Producto;
-import Negocio.Entidades.Ventas;
+//import Negocio.Entidades.Ventas;
 import java.util.Random;
 
 
@@ -359,6 +359,7 @@ public class FrmVentas extends javax.swing.JFrame {
 
     private void btFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarActionPerformed
         // TODO add your handling code here:
+        /*
         ConectaBD cnc = new ConectaBD();
         Connection cnx = cnc.conectar();
         Random rnd = new Random();
@@ -380,16 +381,19 @@ public class FrmVentas extends javax.swing.JFrame {
         double PrecioVenta = this.sumaTotal;
         String DetallesVenta = "";
         
-                Ventas nuevaVenta = new Ventas(IDVenta, FechaDeVenta, NombreCliente, DireccionCliente, PrecioVenta, DetallesVenta);
+         Ventas nuevaVenta = new Ventas(IDVenta, FechaDeVenta, NombreCliente, DireccionCliente, PrecioVenta, DetallesVenta);
          String sql = " INSERT INTO ventas (IDVenta, FechaDeVenta, NombreCliente, DireccionCliente, PrecioVenta, DetallesVenta) VALUES ( "+nuevaVenta.getIdVenta()+" , '"+nuevaVenta.getFechaDeVenta()+"' , "+nuevaVenta.getNombreCliente()+" , "+nuevaVenta.getDireccionCliente()+" , "+nuevaVenta.getPrecioVenta()+" , "+nuevaVenta.getDetallesVenta()+" ) ";
            // para que se pueda comunicar la instrucción a la bd
             Statement instruccion = cnx.createStatement(); //
             // ejecutando la instrucción y actualizando la bd
             instruccion.executeUpdate(sql);   
         }
+        
     }catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
     }
+        */
+        
 
     }//GEN-LAST:event_btFinalizarActionPerformed
 
