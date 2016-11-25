@@ -85,8 +85,8 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lnNombre)
@@ -162,34 +162,19 @@ public class vistaAgregarProducto extends javax.swing.JFrame {
         */
         precioProducto = Double.parseDouble(txtPrecio.getText());
         
+                try {
         Producto nuevoProducto = new Producto(nombreProducto, precioProducto);
         AdminProd adminProd = new AdminProd();
         adminProd.AgregarProd(nuevoProducto);
+        JOptionPane.showMessageDialog(null, "Producto agregado satisfactoriamente");
+            txtNombre.setText("");
+            txtPrecio.setText("");
         
-        /*
-        Instrucción que se quiere realizar junto con los nombres de las
-        columnas y sus parametros correspondientes
-        */
-//        
-//        ConectaBD cnc = new ConectaBD();
-//        Connection cnx = cnc.conectar();
-//       
-//        String sql = " INSERT INTO productos (id, nombre, precio) VALUES ( "+nuevoProducto.getId()+" , '"+nuevoProducto.getNombre()+"' , '"+nuevoProducto.getPrecio()+"' ) ";
-//        
-//        try {
-//            // para que se pueda comunicar la instrucción a la bd
-//            Statement instruccion = cnx.createStatement(); //
-//            // ejecutando la instrucción y actualizando la bd
-//            instruccion.executeUpdate(sql);  
-//            JOptionPane.showMessageDialog(null, "Producto agregado satisfactoriamente");
-//            //txtCodigo.setText("");
-//            txtNombre.setText("");
-//            txtPrecio.setText("");
-//            
-//        } catch (Exception e) {
-//           
-//            JOptionPane.showMessageDialog(null, "ERROR");
-//        }
+                } catch (Exception e) {
+           
+            JOptionPane.showMessageDialog(null, "ERROR");
+        }
+        
         
     }//GEN-LAST:event_btAgregarActionPerformed
 

@@ -203,10 +203,10 @@
                           <Component id="LabelCantidad" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="TextoCantidad" min="-2" pref="108" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="BotonAgregar" max="32767" attributes="0"/>
-                              <Component id="BotonEliminar" min="-2" pref="71" max="-2" attributes="0"/>
+                              <Component id="BotonEliminar" max="32767" attributes="0"/>
+                              <Component id="BotonAgregar" pref="79" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="38" max="32767" attributes="0"/>
                           <Component id="LabelTotal" min="-2" max="-2" attributes="0"/>
